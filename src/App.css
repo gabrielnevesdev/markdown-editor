@@ -1,15 +1,94 @@
 body {
   margin: 0%;
   padding: 0%;
+  
+}
+.App{
+  width: 100vw;
+  height: 100vh;
   background-color: #f2f2f2; 
-} 
-.markdown-editor, .rendered-output {
-  height: 100%;
+}
+.App-header{
+  height: 100px;
+  padding: 20px;
+  text-align: center;
+}
+.header{
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+}
+.App-body{
   width: 100%;
-  padding: 10px; 
-} 
-.markdown-textarea, .rendered-html-output {
-  height: 60vh;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  margin-top: 0;
+}
+.markdown-editor {
+  height: auto;
+  width: 50%;
+  padding: 10px;
+}
+.tool-bar{
+  width: auto;
+  height: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  border-bottom: 1px solid #e6e6e6;
+  background-color: rgb(40, 42, 54);
+
+
+}
+
+.tool{
+  cursor: pointer;
+  background-color: rgb(40, 42, 54);
+  color: grey;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tool:hover{
+  background-color: rgb(40, 42, 54);
+  color: white;
+}
+.editor{
+  height: auto;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: rgb(40, 42, 54);
+  color: #e6e6e6;
+}
+.editor:focus{
+  outline: none;
+}
+.App-preview{
+  width: 50%;
+  height: auto;
+  padding: 10px;
+}
+.rendered-preview{
+  height: 70vh;
   width: 100%;
   overflow: auto;
+  background-color: white;
+  
+}
+*::-webkit-scrollbar{
+  width: 5px;
+}
+*::-webkit-scrollbar-thumb{
+  background-color: #ccc;
+}
+
+*{
+  scrollbar-width: thin;
+  scrollbar-color: #ccc;
 }

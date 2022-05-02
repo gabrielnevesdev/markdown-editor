@@ -2,7 +2,8 @@ import {useState} from "react"
 import MarkdownIt from "markdown-it"
 import FileSaver from "file-saver"
 import "./App.css"
-import InputMd from "./components/inputMD"
+import ToolBar from "./components/tool-bar"
+
 
 function App(){
   const [markdownText, setMarkdownText] = useState("")
@@ -18,40 +19,31 @@ function App(){
   }
 
   return (
-      <div className="container">
-        <h2 className="app-heading text-center
-                       display-4 my-3">
-          Colaborative MarkDown Editor
-        </h2>
-        <div className="row">
-          <div className="col col-sm-12 col-md-6">
-    
-            {/* Card for the markdown editor */}
-          <InputMd markdownText={markdownText} onChange={handleMarkdownChange}/>
-          </div>
-          <div className="col col-sm-12 col-md-6">
-    
-            {/* Card for the markdown editor */}
-            <div className="card bg-white rendered-output">
-              <h4 className="card-title text-center">
-                Output
-              </h4>
-    
-              {/* Textarea for the markdown editor */}
-              <div className="card-body">
-                <div
-    
-                  // Change the HTML to be displayed according
-                  // to the render produced by MarkdownIt
-                  dangerouslySetInnerHTML={{ __html: htmlText }}
-                  className="rendered-html-output"
-                >
-                </div>
-              </div>
-            </div>
+    <div className="App">
+      <header className="App-header">
+        <h1>Colaborative Markdown Editor</h1>
+      </header>
+      <div className="App-body">
+        {/* TextArea para digitar o Markdown */}
+        <div className="markdown-editor">
+          <div className="header"> <h2>Markdown Text</h2> </div>
+          <ToolBar html={htmlText}/>
+          <textarea
+            className="editor"
+            rows={15}
+            cols={70}
+            value={markdownText}
+            onChange={handleMarkdownChange}
+            style={{ resize: 'none' }}></textarea>
+        </div>
+        <div className="App-preview">
+        <div className="header"> <h2>Preview</h2> </div>
+          <div className="rendered-preview">
+            <div dangerouslySetInnerHTML={{__html: htmlText}} />
           </div>
         </div>
       </div>
+    </div>
   )
 }
 
