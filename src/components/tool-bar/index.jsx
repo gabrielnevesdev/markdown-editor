@@ -1,15 +1,17 @@
-import { BsFillFileEarmarkPdfFill, BsTypeItalic, BsTypeBold, BsTable, BsTypeStrikethrough, BsCodeSlash, BsLink45Deg} from "react-icons/bs"
+import { BsFillFileEarmarkPdfFill, BsTypeItalic, 
+  BsTypeBold, BsTable, 
+  BsTypeStrikethrough, BsCodeSlash, 
+  BsLink45Deg, BsDownload} from "react-icons/bs"
 import { MdTitle } from "react-icons/md"
 import handleToolBar from "../../util/handleToolBar";
-import { useState } from "react";
 import "./tool-bar.css"
-import escreve from "../../util/save";
+import downloadFile from "../../util/save";
 
 function ToolBar() {
-  const [hide, setHide] = useState("hide");
   var ta = document.querySelector("textarea");
   return (
     <div className="tool-bar" >
+      <abbr title="download"><BsDownload className="tool" onClick={()=>{downloadFile(ta.value)}}/></abbr>
       <abbr title="Export rendered content to PDF"><BsFillFileEarmarkPdfFill className="tool PDF"/></abbr>
       <abbr title="Bold"><BsTypeBold className="tool" onClick={() => { handleToolBar("bold") }} /></abbr>
       <abbr title="Italic"><BsTypeItalic className="tool" onClick={() => { handleToolBar("italic") }} /></abbr>

@@ -1,8 +1,8 @@
 import FileSaver from 'file-saver';
 
-function escreve(t){
-    let blob = new Blob([t], {type: "application/pdf;charset=utf-8"});
-    FileSaver.saveAs(blob, "save.pdf");
+function downloadFile(t){
+    var blob = new Blob([t], {type: 'text/plain'});
+    FileSaver.saveAs(blob, 'file.md');
 }
 
-export default escreve;
+export default downloadFile;

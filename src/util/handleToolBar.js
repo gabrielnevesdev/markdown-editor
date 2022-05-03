@@ -31,7 +31,7 @@ function handleToolBar(e, type) {
         }
         else {
             ta.value = ta.value.substring(0, start) + "``` \n" +
-                selection + "\n"+"```" +
+                selection + "\n```" +
                 ta.value.substring(end);
         }
     }
