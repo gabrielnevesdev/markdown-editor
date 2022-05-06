@@ -4,42 +4,42 @@ import ToolBar from "./components/tool-bar"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import io from "socket.io-client"
+
 const socket = io("http://localhost:3001")
 
 function App() {
   const [markdownText, setMarkdownText] = useState("")
-  const [documentTitle, setDocumentTitle] = useState("GET")
-
+  const [documentTitle, setDocumentTitle] = useState("test")
+  
   useEffect(() => {
-    if(markdownText == "" && documentTitle) {
-      socket.emit("getDocument", documentTitle)
-        socket.on("document", data=>{
-          console.log(data)
-          setMarkdownText(data)
-        })
+    const text = {
+      title: documentTitle,
+      data: markdownText
     }
+    if (markdownText === "") {
+      socket.emit("getDocument", documentTitle)
+    }
+    socket.on("document", data => {
+      console.log(data)
+      setMarkdownText(data)
+    })
     socket.on("markdown-content", (data) => {
       console.log(data)
       setMarkdownText(data.target)
     })
-  },[socket])
-
-  setInterval(()=>{
-    const data = {
-      title: documentTitle,
-      data: markdownText
-    }
-    socket.emit("setDocument", data)
-  }
-  ,20000)
+    socket.on("setDocument", data => {
+      console.log(data)
+      socket.emit("document-save", text)
+    })
+  }, [documentTitle, markdownText])
 
   const handleMarkdownChange = (event) => {
     setMarkdownText(event.target.value)
-    const e ={
+    const e = {
       target: event.target.value
     }
     socket.emit("markdown", e)
-   
+
   }
 
   return (
