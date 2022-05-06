@@ -1,4 +1,4 @@
-.list, .code-tool{
+.list{
     display: none;
 }
 .show{
@@ -8,36 +8,26 @@
     color: #ccc;
 
 }
-ul{
+.ul{
     list-style: none;
     padding: 0;
     margin: 0;
     
 }
-li{
+.li{
     display: block;
     cursor: pointer;
     text-align: center;
     border-bottom: 0.5px solid #ccc;
 }
-li:hover{
+.li:hover{
     background-color: #ccc;
-    color: black;
-}
-.headers:hover>div {
-    width: 100px;
-    display: block;
-    position: absolute;
-    background-color: rgb(40, 42, 54);
-    color: #ccc;
-}
-.code-tool-bar:hover>div{
-    width: 100px;
-    display: block;
-    position: absolute;
-    background-color: rgb(40, 42, 54);
-    color: #ccc;
-}
-.PDF:hover{
     color: red;
+}
+.options-list:hover>div{
+    width: 100px;
+    display: block;
+    position: absolute;
+    background-color: rgb(40, 42, 54);
+    color: #ccc;
 }

@@ -40,8 +40,6 @@ body {
   justify-content: space-evenly;
   border-bottom: 1px solid #e6e6e6;
   background-color: rgb(40, 42, 54);
-
-
 }
 
 .tool{
@@ -75,10 +73,11 @@ body {
   padding: 10px;
 }
 .rendered-preview{
-  height: 70vh;
+  height: 70.5vh;
   width: 100%;
   overflow: auto;
   background-color: white;
+  padding-left: 10px;
   
 }
 *::-webkit-scrollbar{
@@ -91,4 +90,9 @@ body {
 *{
   scrollbar-width: thin;
   scrollbar-color: #ccc;
+}
+pre, code{
+  background-color: rgb(238, 240, 241);
+  width: 99%;
+  padding: 1%;
 }

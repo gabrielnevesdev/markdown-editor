@@ -65,6 +65,17 @@ function handleToolBar(e, type) {
             "http://" +
             ")";
     }
+    else if (e === "image") {
+        ta.value = ta.value.substring(0, start) + "![" +
+            selection + "](" +
+            "http://" +
+            ")";
+    }
+    else if (e === "list") {
+            ta.value = ta.value.substring(0, start) + "* " +
+                selection + "\n" +
+                ta.value.substring(end);
+    }
 }
 
 export default handleToolBar

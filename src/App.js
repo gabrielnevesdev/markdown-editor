@@ -1,21 +1,45 @@
-import {useState} from "react"
-import MarkdownIt from "markdown-it"
-import FileSaver from "file-saver"
+import { useEffect, useState } from "react"
 import "./App.css"
 import ToolBar from "./components/tool-bar"
+import ReactMarkdown from "react-markdown"
+import remarkGfm from "remark-gfm"
+import io from "socket.io-client"
+const socket = io("http://localhost:3001")
 
-
-function App(){
+function App() {
   const [markdownText, setMarkdownText] = useState("")
-  const [htmlText, setHtmlText] = useState("")
-  const [fileName, setFileName] = useState("untitled-note")
+  const [documentTitle, setDocumentTitle] = useState("GET")
+
+  useEffect(() => {
+    if(markdownText == "" && documentTitle) {
+      socket.emit("getDocument", documentTitle)
+        socket.on("document", data=>{
+          console.log(data)
+          setMarkdownText(data)
+        })
+    }
+    socket.on("markdown-content", (data) => {
+      console.log(data)
+      setMarkdownText(data.target)
+    })
+  },[socket])
+
+  setInterval(()=>{
+    const data = {
+      title: documentTitle,
+      data: markdownText
+    }
+    socket.emit("setDocument", data)
+  }
+  ,20000)
 
   const handleMarkdownChange = (event) => {
     setMarkdownText(event.target.value)
-    const md = new MarkdownIt()
-    const html = md.render(event.target.value)
-
-    setHtmlText(html)
+    const e ={
+      target: event.target.value
+    }
+    socket.emit("markdown", e)
+   
   }
 
   return (
@@ -27,7 +51,7 @@ function App(){
         {/* TextArea para digitar o Markdown */}
         <div className="markdown-editor">
           <div className="header"> <h2>Markdown Text</h2> </div>
-          <ToolBar html={htmlText}/>
+          <ToolBar />
           <textarea
             className="editor"
             rows={15}
@@ -37,9 +61,9 @@ function App(){
             style={{ resize: 'none' }}></textarea>
         </div>
         <div className="App-preview">
-        <div className="header"> <h2>Preview</h2> </div>
+          <div className="header"> <h2>Preview</h2> </div>
           <div className="rendered-preview">
-            <div dangerouslySetInnerHTML={{__html: htmlText}} />
+            <ReactMarkdown remarkPlugins={[remarkGfm]} children={markdownText} />
           </div>
         </div>
       </div>
