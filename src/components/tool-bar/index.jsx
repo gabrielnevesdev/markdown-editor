@@ -1,22 +1,29 @@
-import { BsFillFileEarmarkPdfFill, BsTypeItalic, 
-  BsTypeBold, BsTable, 
-  BsTypeStrikethrough, BsCodeSlash, 
-  BsLink45Deg, BsDownload, BsFillMenuButtonFill, BsListStars, BsListOl} from "react-icons/bs"
-import {FaHeading} from "react-icons/fa"
+import {
+  BsFillFileEarmarkPdfFill, BsTypeItalic,
+  BsTypeBold, BsTable,
+  BsTypeStrikethrough, BsCodeSlash,
+  BsLink45Deg, BsDownload,
+  BsFillMenuButtonFill, BsListStars,
+  BsListOl, BsCloudUploadFill
+} from "react-icons/bs"
+import { FaHeading } from "react-icons/fa"
 import handleToolBar from "../../util/handleToolBar";
 import "./tool-bar.css"
 import downloadFile from "../../util/save";
+import upload from "../../util/upload";
 
-function ToolBar() {
-  var ta = document.querySelector("textarea");
+function ToolBar({ func }) {
+
+  const ta = document.querySelector("textarea");
   return (
     <div className="tool-bar" >
       <abbr title="Options"><div className="options-list">
         <BsFillMenuButtonFill className="tool" />
         <div className="list">
           <ul className="ul">
-            <li className="li" onClick={()=>{downloadFile(ta.value)}}><BsDownload /> Download</li>
-            <li className="li"><BsFillFileEarmarkPdfFill /> Gerar PDF</li>
+            <li className="li" onClick={() => { downloadFile(ta.value) }}><BsDownload n/> Download</li>
+            <li className="li" onClick={func}><BsFillFileEarmarkPdfFill /> Gerar PDF</li>
+            <li className="li" onClick={() => { upload(ta.value) }} ><BsCloudUploadFill /> Upload</li>
           </ul>
         </div>
       </div></abbr>

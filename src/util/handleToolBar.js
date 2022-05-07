@@ -72,9 +72,9 @@ function handleToolBar(e, type) {
             ")";
     }
     else if (e === "list") {
-            ta.value = ta.value.substring(0, start) + "* " +
-                selection + "\n" +
-                ta.value.substring(end);
+        ta.value = ta.value.substring(0, start) + "* " +
+            selection + "\n" +
+            ta.value.substring(end);
     }
 }
 

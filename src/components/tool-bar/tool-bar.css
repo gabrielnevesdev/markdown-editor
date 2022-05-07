@@ -1,30 +1,35 @@
-.list{
+.list {
     display: none;
 }
-.show{
+
+.show {
     display: block;
     position: absolute;
     background-color: rgb(40, 42, 54);
     color: #ccc;
 
 }
-.ul{
+
+.ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    
+
 }
-.li{
+
+.li {
     display: block;
     cursor: pointer;
     text-align: center;
     border-bottom: 0.5px solid #ccc;
 }
-.li:hover{
+
+.li:hover {
     background-color: #ccc;
     color: red;
 }
-.options-list:hover>div{
+
+.options-list:hover>div {
     width: 100px;
     display: block;
     position: absolute;

@@ -1,36 +1,42 @@
 body {
   margin: 0%;
   padding: 0%;
-  
+
 }
-.App{
+
+.App {
   width: 100vw;
   height: 100vh;
-  background-color: #f2f2f2; 
+  background-color: #f2f2f2;
 }
-.App-header{
+
+.App-header {
   height: 100px;
   padding: 20px;
   text-align: center;
 }
-.header{
+
+.header {
   font-size: 30px;
   font-weight: bold;
   text-align: center;
 }
-.App-body{
+
+.App-body {
   width: 100%;
   height: auto;
   display: flex;
   flex-direction: row;
   margin-top: 0;
 }
+
 .markdown-editor {
   height: auto;
   width: 50%;
   padding: 10px;
 }
-.tool-bar{
+
+.tool-bar {
   width: auto;
   height: auto;
   padding: 10px;
@@ -42,7 +48,7 @@ body {
   background-color: rgb(40, 42, 54);
 }
 
-.tool{
+.tool {
   cursor: pointer;
   background-color: rgb(40, 42, 54);
   color: grey;
@@ -52,11 +58,13 @@ body {
   align-items: center;
   justify-content: center;
 }
-.tool:hover{
+
+.tool:hover {
   background-color: rgb(40, 42, 54);
   color: white;
 }
-.editor{
+
+.editor {
   height: auto;
   width: 100%;
   padding: 10px;
@@ -64,34 +72,41 @@ body {
   background-color: rgb(40, 42, 54);
   color: #e6e6e6;
 }
-.editor:focus{
+
+.editor:focus {
   outline: none;
 }
-.App-preview{
+
+.App-preview {
   width: 50%;
   height: auto;
   padding: 10px;
 }
-.rendered-preview{
+
+.rendered-preview {
   height: 70.5vh;
   width: 100%;
   overflow: auto;
   background-color: white;
   padding-left: 10px;
-  
+
 }
-*::-webkit-scrollbar{
+
+*::-webkit-scrollbar {
   width: 5px;
 }
-*::-webkit-scrollbar-thumb{
+
+*::-webkit-scrollbar-thumb {
   background-color: #ccc;
 }
 
-*{
+* {
   scrollbar-width: thin;
   scrollbar-color: #ccc;
 }
-pre, code{
+
+pre,
+code {
   background-color: rgb(238, 240, 241);
   width: 99%;
   padding: 1%;
