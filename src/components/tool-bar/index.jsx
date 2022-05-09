@@ -12,7 +12,7 @@ import "./tool-bar.css"
 import downloadFile from "../../util/save";
 import upload from "../../util/upload";
 
-function ToolBar({ func }) {
+function ToolBar({ func, modal }) {
 
   const ta = document.querySelector("textarea");
   return (
@@ -23,7 +23,7 @@ function ToolBar({ func }) {
           <ul className="ul">
             <li className="li" onClick={() => { downloadFile(ta.value) }}><BsDownload n/> Download</li>
             <li className="li" onClick={func}><BsFillFileEarmarkPdfFill /> Gerar PDF</li>
-            <li className="li" onClick={() => { upload(ta.value) }} ><BsCloudUploadFill /> Upload</li>
+            <li className="li" onClick={modal }><BsCloudUploadFill /> Upload</li>
           </ul>
         </div>
       </div></abbr>

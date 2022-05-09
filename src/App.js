@@ -7,11 +7,61 @@ import io from "socket.io-client"
 import htmlToPdfmake from 'html-to-pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import pdfMake from 'pdfmake';
+import Modal from 'react-modal'
+import DropzoneComponent from "./components/dropzone"
+import FileList from "./components/fileList"
+import {uniqueId} from "lodash"
+import filesize from "filesize"
+import axios from "./services/axios"
+
+Modal.setAppElement('#root')
 
 function App() {
   const [markdownText, setMarkdownText] = useState("")
   const [documentTitle, setDocumentTitle] = useState(window.location.href.split("/")[4])
   const [socket, setSocket] = useState()
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [files, setFiles] = useState([])
+
+ const handleUpload = (files) => {
+   const uploads = files.map(file => ({
+      file,
+      id: uniqueId(),
+      name: file.name,
+      readableSize: filesize(file.size),
+      preview: URL.createObjectURL(file),
+      progress: 0,
+      url: null,
+      error: null,
+      uploaded: false,
+   }))
+    setFiles(files => [...files, ...uploads])
+    uploads.forEach(processUpload)
+}
+const updateFile = (id, data) => {
+  setFiles(files => {
+    const index = files.findIndex(file => file.id === id)
+    const file = files[index]
+    const updatedFile = { ...file, ...data }
+    return [...files.slice(0, index), updatedFile, ...files.slice(index + 1)]
+})
+}
+  const processUpload = (upload) => {
+    const data = new FormData()
+    data.append("file", upload.file)
+    data.append("title", documentTitle)
+    axios.post("/upload", data,{
+      onUploadProgress: progressEvent => {
+        const progress = parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total))
+        updateFile(upload.id, {progress})
+      }
+    }).then(response => {
+      updateFile(upload.id, { uploaded: true, url: response.data.file.path })
+    })
+    .catch(error => {
+      updateFile(upload.id, { error: error.response.data.message })
+    })
+  }
 
   const handleDownloadPdf = async () => {
     const pdfDocment = document.getElementById('to-pdf');
@@ -23,6 +73,12 @@ function App() {
     pdfMake.createPdf(documentDefinition).open();
 
   };
+  const handleModalClose = () => {
+    setIsModalOpen(false)
+  }
+  const handleModalOpen = () => {
+    setIsModalOpen(true)
+  }
   useEffect(() => {
     const s = io("http://localhost:3001")
     setSocket(s)
@@ -89,6 +145,13 @@ function App() {
 
   return (
     <div className="App">
+      <Modal isOpen={isModalOpen} onRequestClose={handleModalClose}>
+        <DropzoneComponent onUpload={handleUpload}/>
+        {!!files.length > 0 && (
+        <FileList files={files}/>
+        )}
+      </Modal>
+
       <header className="App-header">
         <h1>Colaborative Markdown Editor</h1>
       </header>
@@ -96,7 +159,7 @@ function App() {
         {/* TextArea para digitar o Markdown */}
         <div className="markdown-editor">
           <div className="header"> <h2>Markdown Text</h2> </div>
-          <ToolBar func={handleDownloadPdf} />
+          <ToolBar func={handleDownloadPdf} modal={handleModalOpen} />
           <textarea
             className="editor"
             rows={15}
