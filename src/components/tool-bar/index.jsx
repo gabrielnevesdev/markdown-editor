@@ -23,7 +23,6 @@ function ToolBar({ func, modal }) {
           <ul className="ul">
             <li className="li" onClick={() => { downloadFile(ta.value) }}><BsDownload n/> Download</li>
             <li className="li" onClick={func}><BsFillFileEarmarkPdfFill /> Gerar PDF</li>
-            <li className="li" onClick={modal }><BsCloudUploadFill /> Upload</li>
           </ul>
         </div>
       </div></abbr>
@@ -51,7 +50,6 @@ function ToolBar({ func, modal }) {
         </div>
       </div></abbr>
       <abbr title="Link"><BsLink45Deg className="tool" onClick={() => { handleToolBar("link") }} /></abbr>
-      <abbr title="Table"><BsTable className="tool" onClick={() => { handleToolBar("table") }} /></abbr>
       <abbr title="List"><BsListStars className="tool" onClick={() => { handleToolBar("list") }} /></abbr>
       <abbr title="Ordered List"><BsListOl className="tool" onClick={() => { handleToolBar("olist") }} /></abbr>
     </div>

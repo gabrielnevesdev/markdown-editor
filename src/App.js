@@ -22,6 +22,7 @@ function App() {
   const [socket, setSocket] = useState()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [files, setFiles] = useState([])
+  const [modal2, setModal2] = useState(true)
 
  const handleUpload = (files) => {
    const uploads = files.map(file => ({
@@ -74,13 +75,13 @@ const updateFile = (id, data) => {
 
   };
   const handleModalClose = () => {
-    setIsModalOpen(false)
+    isModalOpen ? setIsModalOpen(false) : setModal2(false)
   }
   const handleModalOpen = () => {
     setIsModalOpen(true)
   }
   useEffect(() => {
-    const s = io("http://localhost:3001")
+    const s = io("url-da-sua-api-aqui")
     setSocket(s)
 
     return () => {
@@ -88,6 +89,11 @@ const updateFile = (id, data) => {
     }
   }, [])
 
+  const getDocument = (e) => {
+    e.preventDefault()
+    socket.emit("getDocument", documentTitle)
+    setModal2(false)
+  }
   useEffect(() => {
     if (socket == null) return
     socket.on("markdown-content", (data) => {
@@ -102,9 +108,6 @@ const updateFile = (id, data) => {
 
   useEffect(() => {
     if (socket == null) return
-    if (markdownText === "") {
-      socket.emit("getDocument", documentTitle)
-    }
     socket.once("document", data => {
       console.log(data)
       setMarkdownText(data)
@@ -145,6 +148,19 @@ const updateFile = (id, data) => {
 
   return (
     <div className="App">
+      <Modal isOpen={modal2} onRequestClose={handleModalClose}>
+        <div className="modal-content">
+          <div className="modal-header">
+            <h2>Enter Document Name</h2>
+          </div>
+          <div className="modal-body">
+            <input type="text" onChange={(e) => setDocumentTitle(e.target.value)} />
+          </div>
+          <div className="modal-footer">
+            <button onClick={e=>{getDocument(e)}}>Buscar</button>
+          </div>
+        </div>
+      </Modal>
       <Modal isOpen={isModalOpen} onRequestClose={handleModalClose}>
         <DropzoneComponent onUpload={handleUpload}/>
         {!!files.length > 0 && (
@@ -180,3 +196,7 @@ const updateFile = (id, data) => {
 }
 
 export default App
+
+function exemple(){
+  console.log("teste")
+}

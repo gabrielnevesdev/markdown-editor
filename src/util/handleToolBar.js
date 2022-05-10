@@ -63,14 +63,10 @@ function handleToolBar(e, type) {
         ta.value = ta.value.substring(0, start) + "[" +
             selection + "](" +
             "http://" +
-            ")";
+            ")" +
+            ta.value.substring(end);
     }
-    else if (e === "image") {
-        ta.value = ta.value.substring(0, start) + "![" +
-            selection + "](" +
-            "http://" +
-            ")";
-    }
+    
     else if (e === "list") {
         ta.value = ta.value.substring(0, start) + "* " +
             selection + "\n" +
